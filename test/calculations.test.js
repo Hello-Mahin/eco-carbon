@@ -32,6 +32,15 @@ test('Calculations - calculateEnergy electricity in India', () => {
   assert.strictEqual(co2, 71.6);
 });
 
+test('Calculations - calculateEnergy other fuels', () => {
+  // naturalGasKwh factor = 0.185 * 100 = 18.5 kg
+  assert.strictEqual(calculations.calculateEnergy('naturalGasKwh', 100), 18.5);
+  // heatingOilLitre factor = 2.680 * 50 = 134.0 kg
+  assert.strictEqual(calculations.calculateEnergy('heatingOilLitre', 50), 134.00);
+  // lpgLitre factor = 1.560 * 20 = 31.2 kg
+  assert.strictEqual(calculations.calculateEnergy('lpgLitre', 20), 31.20);
+});
+
 test('Calculations - calculateShopping laptop', () => {
   const co2 = calculations.calculateShopping('laptop', 1);
   // Laptop factor = 300 kg * 1 = 300 kg

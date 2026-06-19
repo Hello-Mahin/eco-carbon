@@ -177,7 +177,7 @@ export function renderGoals() {
     const bDesc = helpers.createElement('div', 'badge-desc', { text: b.description });
     
     const cardClasses = ['badge-item'];
-    if (isUnlocked) cardClasses.push('unlocked');
+    if (isUnlocked) { cardClasses.push('unlocked'); }
     
     const badgeCard = helpers.createElement('div', cardClasses, {
       title: isUnlocked ? 'Unlocked!' : 'Locked'

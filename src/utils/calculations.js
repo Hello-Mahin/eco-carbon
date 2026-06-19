@@ -110,7 +110,7 @@ export const calculations = {
       carKmEquivalent: 0
     };
 
-    if (activities.length === 0) return stats;
+    if (activities.length === 0) { return stats; }
 
     activities.forEach(activity => {
       const co2 = parseFloat(activity.co2 || 0);
@@ -126,6 +126,35 @@ export const calculations = {
     const uniqueDays = new Set(activities.map(a => a.date.split('T')[0]));
     const totalDays = Math.max(1, uniqueDays.size);
     stats.dailyAverage = stats.total / totalDays;
+
+    // Calculate streak
+    const sortedDays = Array.from(uniqueDays).sort((a, b) => new Date(b) - new Date(a));
+    let streak = 0;
+    if (sortedDays.length > 0) {
+      const todayStr = new Date().toISOString().split('T')[0];
+      const yesterday = new Date();
+      yesterday.setDate(yesterday.getDate() - 1);
+      const yesterdayStr = yesterday.toISOString().split('T')[0];
+
+      const mostRecent = sortedDays[0];
+      if (mostRecent === todayStr || mostRecent === yesterdayStr) {
+        streak = 1;
+        let current = new Date(mostRecent);
+        for (let i = 1; i < sortedDays.length; i++) {
+          const nextExpected = new Date(current);
+          nextExpected.setDate(current.getDate() - 1);
+          const nextExpectedStr = nextExpected.toISOString().split('T')[0];
+          
+          if (sortedDays[i] === nextExpectedStr) {
+            streak++;
+            current = nextExpected;
+          } else {
+            break;
+          }
+        }
+      }
+    }
+    stats.streak = streak;
 
     // Equivalents
     stats.treesEquivalent = stats.total / 22.0; // 1 tree = 22 kg CO2 per year

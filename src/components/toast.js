@@ -14,8 +14,8 @@ export const toast = {
     ensureContainer();
 
     let iconName = 'info';
-    if (type === 'success') iconName = 'check-circle';
-    if (type === 'error') iconName = 'alert-triangle';
+    if (type === 'success') { iconName = 'check-circle'; }
+    if (type === 'error') { iconName = 'alert-triangle'; }
 
     const icon = helpers.createElement('i', [], { 'data-lucide': iconName });
     const textEl = helpers.createElement('span', [], { text: message });

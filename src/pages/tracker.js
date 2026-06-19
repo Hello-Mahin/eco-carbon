@@ -94,10 +94,15 @@ export function renderTracker() {
   Object.entries(historyDays).forEach(([dateStr, co2Val]) => {
     let intensityClass = 'heatmap-day-zero';
     if (co2Val > 0) {
-      if (co2Val < 5) intensityClass = 'heatmap-day-low';
-      else if (co2Val < 15) intensityClass = 'heatmap-day-medium';
-      else if (co2Val < 30) intensityClass = 'heatmap-day-high';
-      else intensityClass = 'heatmap-day-veryhigh';
+      if (co2Val < 5) {
+        intensityClass = 'heatmap-day-low';
+      } else if (co2Val < 15) {
+        intensityClass = 'heatmap-day-medium';
+      } else if (co2Val < 30) {
+        intensityClass = 'heatmap-day-high';
+      } else {
+        intensityClass = 'heatmap-day-veryhigh';
+      }
     }
 
     const dayEl = helpers.createElement('div', ['heatmap-day', intensityClass], {
@@ -125,7 +130,7 @@ export function renderTracker() {
       text: f.charAt(0).toUpperCase() + f.slice(1),
       style: 'padding: 4px 12px; font-size: 0.8rem; border-radius: 20px;'
     });
-    if (f === activeFilter) fBtn.style.borderColor = 'var(--primary-color)';
+    if (f === activeFilter) { fBtn.style.borderColor = 'var(--primary-color)'; }
     
     fBtn.addEventListener('click', () => {
       activeFilter = f;

@@ -25,8 +25,14 @@ export function renderCalculator() {
   tabConfig.forEach((tab, index) => {
     const tIcon = helpers.createElement('i', 'calc-card-icon', { 'data-lucide': tab.icon });
     const tTitle = helpers.createElement('div', 'calc-card-title', { text: tab.label });
-    const tabEl = helpers.createElement('div', 'calc-card-option', { 'data-tab': tab.id }, [tIcon, tTitle]);
-    if (index === 0) tabEl.classList.add('selected');
+    const tabEl = helpers.createElement('div', 'calc-card-option', { 
+      'data-tab': tab.id,
+      role: 'tab',
+      tabindex: '0',
+      'aria-selected': index === 0 ? 'true' : 'false',
+      'aria-label': `Show ${tab.label} calculator`
+    }, [tIcon, tTitle]);
+    if (index === 0) { tabEl.classList.add('selected'); }
     tabsHeader.appendChild(tabEl);
   });
   container.appendChild(tabsHeader);
@@ -292,8 +298,12 @@ export function renderCalculator() {
   // Tab switching
   tabsHeader.querySelectorAll('.calc-card-option').forEach(tab => {
     tab.addEventListener('click', () => {
-      tabsHeader.querySelectorAll('.calc-card-option').forEach(el => el.classList.remove('selected'));
+      tabsHeader.querySelectorAll('.calc-card-option').forEach(el => {
+        el.classList.remove('selected');
+        el.setAttribute('aria-selected', 'false');
+      });
       tab.classList.add('selected');
+      tab.setAttribute('aria-selected', 'true');
       
       const tabId = tab.getAttribute('data-tab');
       currentCategory = tabId.replace('tab-', '');
@@ -308,6 +318,13 @@ export function renderCalculator() {
       });
 
       performCalculation();
+    });
+
+    tab.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        tab.click();
+      }
     });
   });
 

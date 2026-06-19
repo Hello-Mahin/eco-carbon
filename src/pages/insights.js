@@ -138,7 +138,8 @@ export function renderInsights() {
     shimmerContainer.style.display = 'none';
 
     // Format markdown beautifully (bullet lists, strong elements, headings, etc.)
-    let htmlContent = markdownPlan
+    const escapedPlan = helpers.escapeHtml(markdownPlan);
+    let htmlContent = escapedPlan
       .replace(/\*\*\*(.*?)\*\*\*/g, '<strong><em>$1</em></strong>')
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\*(.*?)\*/g, '<em>$1</em>')

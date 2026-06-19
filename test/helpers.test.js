@@ -55,6 +55,12 @@ test('Helpers - timeAgo cases', () => {
 
   const dayAgo = new Date(now - 86450 * 1000);
   assert.strictEqual(helpers.timeAgo(dayAgo.toISOString()), '1d ago');
+
+  const monthAgo = new Date(now - 86400 * 30 * 1000 * 1.5);
+  assert.strictEqual(helpers.timeAgo(monthAgo.toISOString()), '1mo ago');
+
+  const yearAgo = new Date(now - 86400 * 365 * 1000 * 2.5);
+  assert.strictEqual(helpers.timeAgo(yearAgo.toISOString()), '2yr ago');
 });
 
 test('Helpers - createElement mock DOM', () => {
@@ -88,10 +94,6 @@ test('Helpers - createElement mock DOM', () => {
   assert.strictEqual(parent.children.length, 2);
   assert.strictEqual(parent.children[0], el);
   assert.strictEqual(parent.children[1].textContent, 'TextNodeChild');
-
-  // Clean mock
-  delete globalThis.document;
-  delete globalThis.HTMLElement;
 });
 
 test('Helpers - refreshIcons mock window', () => {
@@ -106,8 +108,5 @@ test('Helpers - refreshIcons mock window', () => {
 
   helpers.refreshIcons();
   assert.strictEqual(created, true);
-
-  // Clean mock
-  delete globalThis.window;
 });
 

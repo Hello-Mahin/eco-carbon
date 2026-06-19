@@ -157,7 +157,8 @@ export function renderDashboard() {
 
   // Async load Gemini advice
   gemini.getDailyAdvice().then(tip => {
-    iDesc.innerHTML = tip.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+    const escapedTip = helpers.escapeHtml(tip);
+    iDesc.innerHTML = escapedTip.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
   }).catch(e => {
     iDesc.textContent = 'Choose seasonal locally sourced food ingredients to reduce global cargo shipping emissions.';
   });

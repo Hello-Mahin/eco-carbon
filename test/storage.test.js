@@ -18,7 +18,37 @@ globalThis.localStorage = {
   }
 };
 
-// Import storage utility after mocking localStorage
+// Mock DOM globals globally for Node.js test environment
+globalThis.document = {
+  createElement(tag) {
+    return {
+      tagName: tag.toUpperCase(),
+      classList: {
+        classes: [],
+        add(c) { this.classes.push(c); },
+        remove(c) { this.classes = this.classes.filter(x => x !== c); }
+      },
+      setAttribute(key, val) { this[key] = val; },
+      appendChild(child) { this.children.push(child); },
+      remove() {},
+      children: []
+    };
+  },
+  createTextNode(text) {
+    return { textNode: true, textContent: text };
+  },
+  body: {
+    appendChild(child) {}
+  }
+};
+globalThis.HTMLElement = class MockHTMLElement {};
+globalThis.window = {
+  lucide: {
+    createIcons() {}
+  }
+};
+
+// Import storage utility after mocking localStorage and DOM
 import { storage } from '../src/utils/storage.js';
 
 test('Storage - load and default state', () => {
@@ -134,5 +164,13 @@ test('Storage - reset system', () => {
 
   storage.reset();
   assert.strictEqual(storage.getProfile().name, 'Eco Warrior'); // reset to default
+});
+
+test('Storage - load with corrupted JSON recovery', () => {
+  localStorage.clear();
+  localStorage.setItem('carbon_tracker_app_state', '{invalid-json}');
+  const state = storage.load();
+  assert.ok(state);
+  assert.strictEqual(state.profile.name, 'Eco Warrior'); // recovered to default
 });
 

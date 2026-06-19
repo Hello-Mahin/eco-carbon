@@ -204,17 +204,17 @@ export const gemini = {
       .replace(/\?/g, '')
       .trim();
 
-    if (!cleaned) return null;
+    if (!cleaned) { return null; }
 
     try {
       // 2. Search for the closest matching Wikipedia page title
       const searchUrl = `https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(cleaned)}&format=json&origin=*`;
       const searchRes = await fetch(searchUrl);
-      if (!searchRes.ok) return null;
+      if (!searchRes.ok) { return null; }
       const searchData = await searchRes.json();
       
       const results = searchData.query?.search;
-      if (!results || results.length === 0) return null;
+      if (!results || results.length === 0) { return null; }
       
       // Get the title of the first search result
       const pageTitle = results[0].title;
@@ -222,7 +222,7 @@ export const gemini = {
       // 3. Fetch the summary for this page
       const summaryUrl = `https://en.wikipedia.org/api/rest_v1/page/summary/${encodeURIComponent(pageTitle)}`;
       const summaryRes = await fetch(summaryUrl);
-      if (!summaryRes.ok) return null;
+      if (!summaryRes.ok) { return null; }
       
       const summaryData = await summaryRes.json();
       return summaryData.extract;

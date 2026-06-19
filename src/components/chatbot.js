@@ -3,10 +3,10 @@ import { gemini } from '../utils/gemini.js';
 
 export function initChatbot() {
   // Prevent duplicate insertion
-  if (document.getElementById('chatbot-widget')) return;
+  if (document.getElementById('chatbot-widget')) { return; }
 
   const chatIcon = helpers.createElement('i', [], { 'data-lucide': 'message-square-plus' });
-  const bubble = helpers.createElement('div', 'chatbot-bubble', { role: 'button', 'aria-label': 'Open EcoBot AI Chatbot' }, [chatIcon]);
+  const bubble = helpers.createElement('div', 'chatbot-bubble', { role: 'button', 'aria-label': 'Open EcoBot AI Chatbot', tabindex: '0' }, [chatIcon]);
 
   // Window header
   const robotIcon = helpers.createElement('i', [], { 'data-lucide': 'bot' });
@@ -69,6 +69,13 @@ export function initChatbot() {
     }
   });
 
+  bubble.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      bubble.click();
+    }
+  });
+
   closeBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     windowEl.classList.remove('open');
@@ -124,7 +131,7 @@ export function initChatbot() {
   }
 
   async function handleUserSend(text) {
-    if (!text.trim()) return;
+    if (!text.trim()) { return; }
     
     // User message
     addMessage('user', text);

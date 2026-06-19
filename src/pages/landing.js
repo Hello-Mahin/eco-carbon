@@ -84,7 +84,7 @@ export function renderLanding() {
   countryAverages.forEach(c => {
     if (c.code !== 'world') {
       const opt = helpers.createElement('option', [], { value: c.code, text: c.name });
-      if (c.code === 'in') opt.selected = true; // default India
+      if (c.code === 'in') { opt.selected = true; } // default India
       countrySelect.appendChild(opt);
     }
   });
@@ -114,13 +114,29 @@ export function renderLanding() {
   diets.forEach(d => {
     const cardTitle = helpers.createElement('div', 'lifestyle-card-title', { text: d.name });
     const cardDesc = helpers.createElement('div', 'lifestyle-card-desc', { text: d.desc });
-    const card = helpers.createElement('div', 'lifestyle-card', {}, [cardTitle, cardDesc]);
-    if (d.type === 'omnivoreAverage') card.classList.add('selected');
+    const card = helpers.createElement('div', 'lifestyle-card', {
+      role: 'button',
+      tabindex: '0',
+      'aria-label': `${d.name} diet: ${d.desc}`,
+      'aria-selected': d.type === 'omnivoreAverage' ? 'true' : 'false'
+    }, [cardTitle, cardDesc]);
+    if (d.type === 'omnivoreAverage') { card.classList.add('selected'); }
     
     card.addEventListener('click', () => {
-      dietCards.querySelectorAll('.lifestyle-card').forEach(el => el.classList.remove('selected'));
+      dietCards.querySelectorAll('.lifestyle-card').forEach(el => {
+        el.classList.remove('selected');
+        el.setAttribute('aria-selected', 'false');
+      });
       card.classList.add('selected');
+      card.setAttribute('aria-selected', 'true');
       formData.dietType = d.type;
+    });
+
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
+      }
     });
 
     dietCards.appendChild(card);

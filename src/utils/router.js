@@ -80,7 +80,9 @@ export class Router {
 }
 export const getQueryParam = (name) => {
   const hash = window.location.hash;
-  if (!hash.includes('?')) return null;
+  if (!hash.includes('?')) {
+    return null;
+  }
   const urlParams = new URLSearchParams(hash.split('?')[1]);
   return urlParams.get(name);
 };

@@ -5,7 +5,7 @@ export const helpers = {
    * @returns {string} The HTML-escaped string.
    */
   escapeHtml(str) {
-    if (typeof str !== 'string') return '';
+    if (typeof str !== 'string') { return ''; }
     return str
       .replace(/&/g, '&amp;')
       .replace(/</g, '&lt;')
@@ -21,7 +21,7 @@ export const helpers = {
    */
   formatCo2(kgValue) {
     const value = parseFloat(kgValue);
-    if (isNaN(value)) return '0 kg CO₂e';
+    if (isNaN(value)) { return '0 kg CO₂e'; }
     
     if (value >= 1000) {
       const tonnes = value / 1000;
@@ -38,7 +38,7 @@ export const helpers = {
    */
   formatCo2Saving(kgValue) {
     const value = parseFloat(kgValue);
-    if (isNaN(value)) return '0 kg saved';
+    if (isNaN(value)) { return '0 kg saved'; }
     
     if (value >= 1000) {
       const tonnes = value / 1000;
@@ -61,7 +61,7 @@ export const helpers = {
     
     if (Array.isArray(classes)) {
       classes.forEach(c => {
-        if (c) element.classList.add(c);
+        if (c) { element.classList.add(c); }
       });
     } else if (typeof classes === 'string' && classes) {
       element.className = classes;
@@ -103,15 +103,15 @@ export const helpers = {
     const seconds = Math.floor((new Date() - new Date(dateInput)) / 1000);
     let interval = seconds / 31536000;
 
-    if (interval > 1) return Math.floor(interval) + 'yr ago';
+    if (interval > 1) { return Math.floor(interval) + 'yr ago'; }
     interval = seconds / 2592000;
-    if (interval > 1) return Math.floor(interval) + 'mo ago';
+    if (interval > 1) { return Math.floor(interval) + 'mo ago'; }
     interval = seconds / 86400;
-    if (interval > 1) return Math.floor(interval) + 'd ago';
+    if (interval > 1) { return Math.floor(interval) + 'd ago'; }
     interval = seconds / 3600;
-    if (interval > 1) return Math.floor(interval) + 'h ago';
+    if (interval > 1) { return Math.floor(interval) + 'h ago'; }
     interval = seconds / 60;
-    if (interval > 1) return Math.floor(interval) + 'm ago';
+    if (interval > 1) { return Math.floor(interval) + 'm ago'; }
     return 'Just now';
   },
 

@@ -18,6 +18,36 @@ globalThis.localStorage = {
   }
 };
 
+// Mock DOM globals globally for Node.js test environment
+globalThis.document = {
+  createElement(tag) {
+    return {
+      tagName: tag.toUpperCase(),
+      classList: {
+        classes: [],
+        add(c) { this.classes.push(c); },
+        remove(c) { this.classes = this.classes.filter(x => x !== c); }
+      },
+      setAttribute(key, val) { this[key] = val; },
+      appendChild(child) { this.children.push(child); },
+      remove() {},
+      children: []
+    };
+  },
+  createTextNode(text) {
+    return { textNode: true, textContent: text };
+  },
+  body: {
+    appendChild(child) {}
+  }
+};
+globalThis.HTMLElement = class MockHTMLElement {};
+globalThis.window = {
+  lucide: {
+    createIcons() {}
+  }
+};
+
 // Mock fetch globally for network-based AI APIs and Wikipedia fallback
 globalThis.fetch = async (url, options) => {
   if (url.includes('wikipedia.org/w/api.php')) {
@@ -41,6 +71,9 @@ globalThis.fetch = async (url, options) => {
     };
   }
   if (url.includes('generativelanguage.googleapis.com')) {
+    if (url.includes('key=AIzaSyMockErrorKey')) {
+      throw new Error('API failure simulation');
+    }
     return {
       ok: true,
       json: async () => ({
@@ -150,5 +183,14 @@ test('Gemini - generatePersonalizedPlan with API key', async () => {
   storage.setApiKey('AIzaSyMockKey');
   const plan = await gemini.generatePersonalizedPlan();
   assert.strictEqual(plan, 'Gemini simulated response text');
+  storage.clear();
+});
+
+test('Gemini - generateResponse API key error fallback', async () => {
+  storage.clear();
+  storage.setApiKey('AIzaSyMockErrorKey');
+  // Should catch the error and fallback to getLocalAIResponse
+  const res = await gemini.generateResponse('Hello global warming', 'System rules');
+  assert.ok(res.includes('How Carbon Emissions Cause Global Warming'));
   storage.clear();
 });

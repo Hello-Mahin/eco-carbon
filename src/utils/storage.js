@@ -1,3 +1,7 @@
+import { calculations } from './calculations.js';
+import { dailyChallenges } from '../data/challenges.js';
+import { toast } from '../components/toast.js';
+
 const STORAGE_KEY = 'carbon_tracker_app_state';
 
 const defaultState = {
@@ -103,7 +107,10 @@ export const storage = {
     const newLevel = Math.floor(Math.sqrt(state.profile.xp / 100)) + 1;
     if (newLevel > state.profile.level) {
       state.profile.level = newLevel;
+      toast.info(`🎉 LEVEL UP! You are now Level ${newLevel}!`);
     }
+    
+    this.checkAndUnlockBadges(state);
     
     this.save(state);
     return { activity: newActivity, state };
@@ -143,6 +150,8 @@ export const storage = {
       state.profile.level = newLevel;
       leveledUp = true;
     }
+    
+    this.checkAndUnlockBadges(state);
     
     this.save(state);
     return { success: true, state, leveledUp };
@@ -197,5 +206,98 @@ export const storage = {
     const state = this.load();
     state.apiKey = key;
     this.save(state);
+  },
+
+  checkAndUnlockBadges(state) {
+    const unlocked = [];
+    
+    // 1. Eco Logger
+    if (state.activities.length >= 1) {
+      if (this.unlockBadgeDirect(state, 'eco_logger')) {
+        unlocked.push('Eco Logger');
+      }
+    }
+    
+    // 2. Streak Badges
+    const stats = calculations.aggregateStats(state.activities);
+    if (stats.streak >= 3) {
+      if (this.unlockBadgeDirect(state, 'streak_3')) {
+        unlocked.push('Green Streak');
+      }
+    }
+    if (stats.streak >= 7) {
+      if (this.unlockBadgeDirect(state, 'streak_7')) {
+        unlocked.push('Eco Warrior');
+      }
+    }
+    
+    // 3. Vegan Badge (5 vegan meals)
+    const veganMeals = state.activities.filter(a => a.type === 'vegan').length;
+    if (veganMeals >= 5) {
+      if (this.unlockBadgeDirect(state, 'vegan_badge')) {
+        unlocked.push('Plant Powered');
+      }
+    }
+    
+    // 4. Transit Badge (5 public transit/cycle)
+    const transitCount = state.activities.filter(a => 
+      a.category === 'transport' && 
+      (a.type === 'busLocal' || a.type === 'trainNational' || a.type === 'bicycle' || a.type === 'bus' || a.type === 'transit')
+    ).length;
+    if (transitCount >= 5) {
+      if (this.unlockBadgeDirect(state, 'transit_badge')) {
+        unlocked.push('Public Transport Pro');
+      }
+    }
+    
+    // 5. Zero Waste Badge (5 waste reduction logs)
+    const wasteCount = state.activities.filter(a => 
+      a.category === 'waste' && 
+      (a.type === 'recyclingAverage' || a.type === 'composting')
+    ).length;
+    if (wasteCount >= 5) {
+      if (this.unlockBadgeDirect(state, 'zero_waste_badge')) {
+        unlocked.push('Zero Waste Champ');
+      }
+    }
+    
+    // 6. Savings Badges
+    const completedIds = Object.values(state.completedChallenges).flat();
+    const totalCo2Saved = completedIds.reduce((sum, id) => {
+      const ch = dailyChallenges.find(c => c.id === id);
+      return sum + (ch ? ch.saving : 0);
+    }, 0);
+    
+    if (totalCo2Saved >= 10) {
+      if (this.unlockBadgeDirect(state, 'co2_saved_10')) {
+        unlocked.push('Carbon Cutter');
+      }
+    }
+    if (totalCo2Saved >= 50) {
+      if (this.unlockBadgeDirect(state, 'co2_saved_50')) {
+        unlocked.push('Forest Friend');
+      }
+    }
+    if (totalCo2Saved >= 100) {
+      if (this.unlockBadgeDirect(state, 'co2_saved_100')) {
+        unlocked.push('Planet Savior');
+      }
+    }
+  },
+
+  unlockBadgeDirect(state, badgeId) {
+    if (state.unlockedBadges.includes(badgeId)) {
+      return false;
+    }
+    state.unlockedBadges.push(badgeId);
+    state.profile.xp += 100;
+    
+    // Level up check
+    const newLevel = Math.floor(Math.sqrt(state.profile.xp / 100)) + 1;
+    if (newLevel > state.profile.level) {
+      state.profile.level = newLevel;
+      toast.info(`🎉 LEVEL UP! You are now Level ${newLevel}!`);
+    }
+    return true;
   }
 };

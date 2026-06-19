@@ -50,7 +50,7 @@ export function renderCompare() {
     const percentage = Math.round((item.value / maxVal) * 100);
 
     const labelName = helpers.createElement('span', 'compare-bar-name', { text: item.name });
-    if (item.isUser) labelName.style.fontWeight = 'bold';
+    if (item.isUser) { labelName.style.fontWeight = 'bold'; }
     
     const labelVal = helpers.createElement('span', 'compare-bar-value', { text: `${item.value.toFixed(2)} tonnes` });
     const labelsRow = helpers.createElement('div', 'compare-bar-labels', {}, [labelName, labelVal]);
@@ -124,7 +124,7 @@ export function renderCompare() {
     const rightPart = helpers.createElement('div', 'leaderboard-co2', { text: `${co2Val.toFixed(1)} kg/day` });
 
     const classes = ['leaderboard-item'];
-    if (isMe) classes.push('me');
+    if (isMe) { classes.push('me'); }
 
     return helpers.createElement('div', classes, {}, [leftPart, rightPart]);
   }
