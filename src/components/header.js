@@ -10,7 +10,7 @@ export function renderHeader(titleText = 'Dashboard', subtitleText = 'Your susta
   const currentTheme = storage.getTheme();
   const themeIconName = currentTheme === 'dark' ? 'sun' : 'moon';
   const themeToggleIcon = helpers.createElement('i', [], { 'data-lucide': themeIconName });
-  const themeBtn = helpers.createElement('button', 'theme-toggle', { title: 'Toggle Theme' }, [themeToggleIcon]);
+  const themeBtn = helpers.createElement('button', 'theme-toggle', { title: 'Toggle Theme', 'aria-label': 'Toggle theme mode' }, [themeToggleIcon]);
   
   themeBtn.addEventListener('click', () => {
     const activeTheme = document.documentElement.getAttribute('data-theme') || 'dark';
@@ -29,7 +29,7 @@ export function renderHeader(titleText = 'Dashboard', subtitleText = 'Your susta
 
   // Notification button (mock click shows alert)
   const bellIcon = helpers.createElement('i', [], { 'data-lucide': 'bell' });
-  const bellBtn = helpers.createElement('button', 'notifications-toggle', { title: 'Notifications' }, [bellIcon]);
+  const bellBtn = helpers.createElement('button', 'notifications-toggle', { title: 'Notifications', 'aria-label': 'View notifications' }, [bellIcon]);
   
   bellBtn.addEventListener('click', () => {
     import('./toast.js').then(m => {

@@ -6,7 +6,7 @@ export function initChatbot() {
   if (document.getElementById('chatbot-widget')) return;
 
   const chatIcon = helpers.createElement('i', [], { 'data-lucide': 'message-square-plus' });
-  const bubble = helpers.createElement('div', 'chatbot-bubble', {}, [chatIcon]);
+  const bubble = helpers.createElement('div', 'chatbot-bubble', { role: 'button', 'aria-label': 'Open EcoBot AI Chatbot' }, [chatIcon]);
 
   // Window header
   const robotIcon = helpers.createElement('i', [], { 'data-lucide': 'bot' });
@@ -16,7 +16,7 @@ export function initChatbot() {
   const headerText = helpers.createElement('div', {}, {}, [titleText, statusIndicator]);
 
   const closeIcon = helpers.createElement('i', [], { 'data-lucide': 'x' });
-  const closeBtn = helpers.createElement('button', 'chatbot-close', {}, [closeIcon]);
+  const closeBtn = helpers.createElement('button', 'chatbot-close', { 'aria-label': 'Close Chatbot' }, [closeIcon]);
   const header = helpers.createElement('div', 'chatbot-header', {}, [headerText, closeBtn]);
 
   // Message area
@@ -41,7 +41,7 @@ export function initChatbot() {
   // Input row
   const inputEl = helpers.createElement('input', 'chatbot-input', { type: 'text', placeholder: 'Ask EcoBot anything...' });
   const sendIcon = helpers.createElement('i', [], { 'data-lucide': 'send' });
-  const sendBtn = helpers.createElement('button', 'chatbot-send', {}, [sendIcon]);
+  const sendBtn = helpers.createElement('button', 'chatbot-send', { 'aria-label': 'Send message' }, [sendIcon]);
   const inputContainer = helpers.createElement('div', 'chatbot-input-container', {}, [inputEl, sendBtn]);
 
   // Chat window

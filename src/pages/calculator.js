@@ -59,8 +59,8 @@ export function renderCalculator() {
   const fTrans = helpers.createElement('div', ['calc-step-panel', 'active']);
   
   const transTypeGroup = helpers.createElement('div', 'form-group');
-  const transTypeLabel = helpers.createElement('label', 'form-label', { text: 'Vehicle Type:' });
-  const transTypeSelect = helpers.createElement('select', 'form-select');
+  const transTypeLabel = helpers.createElement('label', 'form-label', { text: 'Vehicle Type:', for: 'calc-trans-type' });
+  const transTypeSelect = helpers.createElement('select', 'form-select', { id: 'calc-trans-type' });
   const vehicleOptions = [
     { val: 'petrolCar', label: 'Petrol Car (Single Occupant)' },
     { val: 'dieselCar', label: 'Diesel Car (Single Occupant)' },
@@ -78,8 +78,8 @@ export function renderCalculator() {
   transTypeGroup.appendChild(transTypeSelect);
 
   const transDistGroup = helpers.createElement('div', 'form-group');
-  const transDistLabel = helpers.createElement('label', 'form-label', { text: 'Distance (in km):' });
-  const transDistInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '25' });
+  const transDistLabel = helpers.createElement('label', 'form-label', { text: 'Distance (in km):', for: 'calc-trans-dist' });
+  const transDistInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '25', id: 'calc-trans-dist' });
   transDistGroup.appendChild(transDistLabel);
   transDistGroup.appendChild(transDistInput);
 
@@ -93,8 +93,8 @@ export function renderCalculator() {
   const fFood = helpers.createElement('div', 'calc-step-panel');
 
   const foodTypeGroup = helpers.createElement('div', 'form-group');
-  const foodTypeLabel = helpers.createElement('label', 'form-label', { text: 'Food/Product Category:' });
-  const foodTypeSelect = helpers.createElement('select', 'form-select');
+  const foodTypeLabel = helpers.createElement('label', 'form-label', { text: 'Food/Product Category:', for: 'calc-food-type' });
+  const foodTypeSelect = helpers.createElement('select', 'form-select', { id: 'calc-food-type' });
   const foodOptions = [
     { val: 'beef', label: 'Red Meat (Beef)' },
     { val: 'lamb', label: 'Red Meat (Lamb)' },
@@ -114,8 +114,8 @@ export function renderCalculator() {
   foodTypeGroup.appendChild(foodTypeSelect);
 
   const foodQtyGroup = helpers.createElement('div', 'form-group');
-  const foodQtyLabel = helpers.createElement('label', 'form-label', { text: 'Quantity (in kg or Liters):' });
-  const foodQtyInput = helpers.createElement('input', 'form-control', { type: 'number', step: '0.1', min: '0', value: '0.5' });
+  const foodQtyLabel = helpers.createElement('label', 'form-label', { text: 'Quantity (in kg or Liters):', for: 'calc-food-qty' });
+  const foodQtyInput = helpers.createElement('input', 'form-control', { type: 'number', step: '0.1', min: '0', value: '0.5', id: 'calc-food-qty' });
   foodQtyGroup.appendChild(foodQtyLabel);
   foodQtyGroup.appendChild(foodQtyInput);
 
@@ -129,8 +129,8 @@ export function renderCalculator() {
   const fEnergy = helpers.createElement('div', 'calc-step-panel');
 
   const energyTypeGroup = helpers.createElement('div', 'form-group');
-  const energyTypeLabel = helpers.createElement('label', 'form-label', { text: 'Energy Source:' });
-  const energyTypeSelect = helpers.createElement('select', 'form-select');
+  const energyTypeLabel = helpers.createElement('label', 'form-label', { text: 'Energy Source:', for: 'calc-energy-type' });
+  const energyTypeSelect = helpers.createElement('select', 'form-select', { id: 'calc-energy-type' });
   const energyOptions = [
     { val: 'electricity', label: 'Utility Grid Electricity' },
     { val: 'naturalGasKwh', label: 'Natural Gas (per kWh)' },
@@ -144,8 +144,8 @@ export function renderCalculator() {
   energyTypeGroup.appendChild(energyTypeSelect);
 
   const energyQtyGroup = helpers.createElement('div', 'form-group');
-  const energyQtyLabel = helpers.createElement('label', 'form-label', { text: 'Consumption Amount (kWh or Liters):' });
-  const energyQtyInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '100' });
+  const energyQtyLabel = helpers.createElement('label', 'form-label', { text: 'Consumption Amount (kWh or Liters):', for: 'calc-energy-qty' });
+  const energyQtyInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '100', id: 'calc-energy-qty' });
   energyQtyGroup.appendChild(energyQtyLabel);
   energyQtyGroup.appendChild(energyQtyInput);
 
@@ -159,8 +159,8 @@ export function renderCalculator() {
   const fShop = helpers.createElement('div', 'calc-step-panel');
 
   const shopTypeGroup = helpers.createElement('div', 'form-group');
-  const shopTypeLabel = helpers.createElement('label', 'form-label', { text: 'Item Category:' });
-  const shopTypeSelect = helpers.createElement('select', 'form-select');
+  const shopTypeLabel = helpers.createElement('label', 'form-label', { text: 'Item Category:', for: 'calc-shop-type' });
+  const shopTypeSelect = helpers.createElement('select', 'form-select', { id: 'calc-shop-type' });
   const shopOptions = [
     { val: 'tshirt', label: 'Apparel (T-shirt / Top)' },
     { val: 'jeans', label: 'Apparel (Jeans)' },
@@ -176,8 +176,8 @@ export function renderCalculator() {
   shopTypeGroup.appendChild(shopTypeSelect);
 
   const shopQtyGroup = helpers.createElement('div', 'form-group');
-  const shopQtyLabel = helpers.createElement('label', 'form-label', { text: 'Quantity (items):' });
-  const shopQtyInput = helpers.createElement('input', 'form-control', { type: 'number', min: '1', value: '1' });
+  const shopQtyLabel = helpers.createElement('label', 'form-label', { text: 'Quantity (items):', for: 'calc-shop-qty' });
+  const shopQtyInput = helpers.createElement('input', 'form-control', { type: 'number', min: '1', value: '1', id: 'calc-shop-qty' });
   shopQtyGroup.appendChild(shopQtyLabel);
   shopQtyGroup.appendChild(shopQtyInput);
 
@@ -191,8 +191,8 @@ export function renderCalculator() {
   const fWaste = helpers.createElement('div', 'calc-step-panel');
 
   const wasteTypeGroup = helpers.createElement('div', 'form-group');
-  const wasteTypeLabel = helpers.createElement('label', 'form-label', { text: 'Waste Stream:' });
-  const wasteTypeSelect = helpers.createElement('select', 'form-select');
+  const wasteTypeLabel = helpers.createElement('label', 'form-label', { text: 'Waste Stream:', for: 'calc-waste-type' });
+  const wasteTypeSelect = helpers.createElement('select', 'form-select', { id: 'calc-waste-type' });
   const wasteOptions = [
     { val: 'landfillGeneral', label: 'General Garbage (Landfill)' },
     { val: 'landfillFood', label: 'Food Waste (Landfill Methane)' },
@@ -206,8 +206,8 @@ export function renderCalculator() {
   wasteTypeGroup.appendChild(wasteTypeSelect);
 
   const wasteQtyGroup = helpers.createElement('div', 'form-group');
-  const wasteQtyLabel = helpers.createElement('label', 'form-label', { text: 'Weight of waste (in kg):' });
-  const wasteQtyInput = helpers.createElement('input', 'form-control', { type: 'number', step: '0.5', min: '0', value: '10' });
+  const wasteQtyLabel = helpers.createElement('label', 'form-label', { text: 'Weight of waste (in kg):', for: 'calc-waste-qty' });
+  const wasteQtyInput = helpers.createElement('input', 'form-control', { type: 'number', step: '0.5', min: '0', value: '10', id: 'calc-waste-qty' });
   wasteQtyGroup.appendChild(wasteQtyLabel);
   wasteQtyGroup.appendChild(wasteQtyInput);
 

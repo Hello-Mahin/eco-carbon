@@ -1,0 +1,23 @@
+{
+  "name": "eco-carbon",
+  "version": "1.0.0",
+  "description": "Premium Carbon Footprint Awareness & Tracking Platform",
+  "main": "src/main.js",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/**/*.test.js",
+    "lint": "eslint src/**/*.js"
+  },
+  "keywords": [
+    "carbon",
+    "footprint",
+    "sustainability",
+    "eco",
+    "tracker"
+  ],
+  "author": "Mahin",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^9.0.0"
+  }
+}
