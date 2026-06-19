@@ -113,14 +113,14 @@ export function renderGoals() {
   const goals = storage.getGoals();
 
   const budgetFormGroup = helpers.createElement('div', 'form-group');
-  const budgetFormLabel = helpers.createElement('label', 'form-label', { text: 'Monthly Carbon Budget Limit (in kg CO₂):' });
-  const budgetInput = helpers.createElement('input', 'form-control', { type: 'number', min: '10', value: goals.monthlyTarget });
+  const budgetFormLabel = helpers.createElement('label', 'form-label', { text: 'Monthly Carbon Budget Limit (in kg CO₂):', for: 'goals-monthly-target' });
+  const budgetInput = helpers.createElement('input', 'form-control', { type: 'number', min: '10', value: goals.monthlyTarget, id: 'goals-monthly-target' });
   budgetFormGroup.appendChild(budgetFormLabel);
   budgetFormGroup.appendChild(budgetInput);
 
   const reductionGroup = helpers.createElement('div', 'form-group');
-  const reductionLabel = helpers.createElement('label', 'form-label', { text: 'Reduction Target Percentage (%):' });
-  const reductionInput = helpers.createElement('input', 'form-control', { type: 'number', min: '1', max: '99', value: goals.reductionPercent });
+  const reductionLabel = helpers.createElement('label', 'form-label', { text: 'Reduction Target Percentage (%):', for: 'goals-reduction-percent' });
+  const reductionInput = helpers.createElement('input', 'form-control', { type: 'number', min: '1', max: '99', value: goals.reductionPercent, id: 'goals-reduction-percent' });
   reductionGroup.appendChild(reductionLabel);
   reductionGroup.appendChild(reductionInput);
 

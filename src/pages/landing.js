@@ -73,14 +73,14 @@ export function renderLanding() {
   step1Title.prepend(userIcon);
 
   const nameGroup = helpers.createElement('div', 'form-group');
-  const nameLabel = helpers.createElement('label', 'form-label', { text: 'What should we call you?' });
-  const nameInput = helpers.createElement('input', 'form-control', { type: 'text', placeholder: 'e.g. Jane Doe' });
+  const nameLabel = helpers.createElement('label', 'form-label', { text: 'What should we call you?', for: 'onboard-name' });
+  const nameInput = helpers.createElement('input', 'form-control', { type: 'text', placeholder: 'e.g. Jane Doe', id: 'onboard-name' });
   nameGroup.appendChild(nameLabel);
   nameGroup.appendChild(nameInput);
 
   const countryGroup = helpers.createElement('div', 'form-group');
-  const countryLabel = helpers.createElement('label', 'form-label', { text: 'Where do you live?' });
-  const countrySelect = helpers.createElement('select', 'form-select');
+  const countryLabel = helpers.createElement('label', 'form-label', { text: 'Where do you live?', for: 'onboard-country' });
+  const countrySelect = helpers.createElement('select', 'form-select', { id: 'onboard-country' });
   countryAverages.forEach(c => {
     if (c.code !== 'world') {
       const opt = helpers.createElement('option', [], { value: c.code, text: c.name });
@@ -137,8 +137,8 @@ export function renderLanding() {
   step3Title.prepend(travelIcon);
 
   const carTypeGroup = helpers.createElement('div', 'form-group');
-  const carTypeLabel = helpers.createElement('label', 'form-label', { text: 'Primary Vehicle Type (if any):' });
-  const carTypeSelect = helpers.createElement('select', 'form-select');
+  const carTypeLabel = helpers.createElement('label', 'form-label', { text: 'Primary Vehicle Type (if any):', for: 'onboard-car-type' });
+  const carTypeSelect = helpers.createElement('select', 'form-select', { id: 'onboard-car-type' });
   const carTypes = [
     { val: 'petrolCar', label: 'Petrol/Gasoline Car' },
     { val: 'dieselCar', label: 'Diesel Car' },
@@ -153,28 +153,28 @@ export function renderLanding() {
   carTypeGroup.appendChild(carTypeSelect);
 
   const carDistanceGroup = helpers.createElement('div', 'form-group');
-  const carDistanceLabel = helpers.createElement('label', 'form-label', { text: 'Weekly distance driven (in km):' });
-  const carDistanceInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '50' });
+  const carDistanceLabel = helpers.createElement('label', 'form-label', { text: 'Weekly distance driven (in km):', for: 'onboard-car-dist' });
+  const carDistanceInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '50', id: 'onboard-car-dist' });
   carDistanceGroup.appendChild(carDistanceLabel);
   carDistanceGroup.appendChild(carDistanceInput);
 
   const transitDistanceGroup = helpers.createElement('div', 'form-group');
-  const transitDistanceLabel = helpers.createElement('label', 'form-label', { text: 'Weekly public transit distance (bus/train in km):' });
-  const transitDistanceInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '20' });
+  const transitDistanceLabel = helpers.createElement('label', 'form-label', { text: 'Weekly public transit distance (bus/train in km):', for: 'onboard-transit-dist' });
+  const transitDistanceInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '20', id: 'onboard-transit-dist' });
   transitDistanceGroup.appendChild(transitDistanceLabel);
   transitDistanceGroup.appendChild(transitDistanceInput);
 
   const flightGroup = helpers.createElement('div', 'grid-2');
   
   const domFlightGroup = helpers.createElement('div', 'form-group');
-  const domFlightLabel = helpers.createElement('label', 'form-label', { text: 'Short flights per year (<3hr):' });
-  const domFlightInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '1' });
+  const domFlightLabel = helpers.createElement('label', 'form-label', { text: 'Short flights per year (<3hr):', for: 'onboard-dom-flight' });
+  const domFlightInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '1', id: 'onboard-dom-flight' });
   domFlightGroup.appendChild(domFlightLabel);
   domFlightGroup.appendChild(domFlightInput);
 
   const intFlightGroup = helpers.createElement('div', 'form-group');
-  const intFlightLabel = helpers.createElement('label', 'form-label', { text: 'Long flights per year (>3hr):' });
-  const intFlightInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '0' });
+  const intFlightLabel = helpers.createElement('label', 'form-label', { text: 'Long flights per year (>3hr):', for: 'onboard-int-flight' });
+  const intFlightInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '0', id: 'onboard-int-flight' });
   intFlightGroup.appendChild(intFlightLabel);
   intFlightGroup.appendChild(intFlightInput);
   flightGroup.appendChild(domFlightGroup);
@@ -197,22 +197,22 @@ export function renderLanding() {
   step4Title.prepend(energyIcon);
 
   const elecGroup = helpers.createElement('div', 'form-group');
-  const elecLabel = helpers.createElement('label', 'form-label', { text: 'Monthly electricity usage (in kWh):' });
-  const elecInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '150' });
+  const elecLabel = helpers.createElement('label', 'form-label', { text: 'Monthly electricity usage (in kWh):', for: 'onboard-elec' });
+  const elecInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '150', id: 'onboard-elec' });
   elecGroup.appendChild(elecLabel);
   elecGroup.appendChild(elecInput);
 
   const shopGroup = helpers.createElement('div', 'grid-2');
   
   const clothingGroup = helpers.createElement('div', 'form-group');
-  const clothingLabel = helpers.createElement('label', 'form-label', { text: 'New clothing items purchased per month:' });
-  const clothingInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '2' });
+  const clothingLabel = helpers.createElement('label', 'form-label', { text: 'New clothing items purchased per month:', for: 'onboard-clothing' });
+  const clothingInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '2', id: 'onboard-clothing' });
   clothingGroup.appendChild(clothingLabel);
   clothingGroup.appendChild(clothingInput);
 
   const techGroup = helpers.createElement('div', 'form-group');
-  const techLabel = helpers.createElement('label', 'form-label', { text: 'Electronic devices bought per year:' });
-  const techInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '1' });
+  const techLabel = helpers.createElement('label', 'form-label', { text: 'Electronic devices bought per year:', for: 'onboard-tech' });
+  const techInput = helpers.createElement('input', 'form-control', { type: 'number', min: '0', value: '1', id: 'onboard-tech' });
   techGroup.appendChild(techLabel);
   techGroup.appendChild(techInput);
   

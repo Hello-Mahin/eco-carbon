@@ -86,8 +86,11 @@ export function initChatbot() {
   });
 
   function addMessage(role, text) {
+    // Escape HTML first to prevent XSS injection
+    const escapedText = helpers.escapeHtml(text);
+
     // Basic markdown replacement helper (bold, bullets, line breaks)
-    let formattedText = text
+    let formattedText = escapedText
       .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
       .replace(/\n\s*\*\s*(.*?)/g, '<li>$1</li>')
       .replace(/<li>(.*?)<\/li>/g, '<ul><li>$1</li></ul>') // rough wrapper

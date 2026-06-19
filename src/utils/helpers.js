@@ -1,5 +1,24 @@
 export const helpers = {
-  // Format carbon emission values beautifully
+  /**
+   * Sanitizes a string to prevent XSS vulnerabilities.
+   * @param {string} str - The unsafe string.
+   * @returns {string} The HTML-escaped string.
+   */
+  escapeHtml(str) {
+    if (typeof str !== 'string') return '';
+    return str
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  },
+
+  /**
+   * Formats carbon emission values beautifully (kg or tonnes).
+   * @param {number|string} kgValue - The carbon emission value in kg.
+   * @returns {string} The formatted carbon emission string.
+   */
   formatCo2(kgValue) {
     const value = parseFloat(kgValue);
     if (isNaN(value)) return '0 kg CO₂e';
@@ -12,7 +31,11 @@ export const helpers = {
     return `${Math.round(value).toLocaleString()} kg CO₂e`;
   },
 
-  // Format carbon saving values
+  /**
+   * Formats carbon saving values beautifully.
+   * @param {number|string} kgValue - The carbon saving value in kg.
+   * @returns {string} The formatted saving string.
+   */
   formatCo2Saving(kgValue) {
     const value = parseFloat(kgValue);
     if (isNaN(value)) return '0 kg saved';
@@ -25,7 +48,14 @@ export const helpers = {
     return `${value.toFixed(1)} kg saved`;
   },
 
-  // Create DOM elements with attributes and classes
+  /**
+   * Reusable helper to construct DOM elements with class attributes, standard attributes, and child nodes.
+   * @param {string} tag - HTML tag name.
+   * @param {string|string[]} classes - List of CSS classes.
+   * @param {object} attrs - Attributes dictionary.
+   * @param {HTMLElement[]|string[]} children - Child DOM nodes or text.
+   * @returns {HTMLElement} The created DOM element.
+   */
   createElement(tag, classes = [], attrs = {}, children = []) {
     const element = document.createElement(tag);
     

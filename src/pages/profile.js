@@ -63,11 +63,12 @@ export function renderProfile() {
   });
 
   const apiKeyGroup = helpers.createElement('div', 'form-group');
-  const apiKeyLabel = helpers.createElement('label', 'form-label', { text: 'Gemini API Key:' });
+  const apiKeyLabel = helpers.createElement('label', 'form-label', { text: 'Gemini API Key:', for: 'profile-api-key' });
   const apiKeyInput = helpers.createElement('input', 'form-control', { 
     type: 'password', 
     placeholder: 'AIzaSy...', 
-    value: storage.getApiKey()
+    value: storage.getApiKey(),
+    id: 'profile-api-key'
   });
   apiKeyGroup.appendChild(apiKeyLabel);
   apiKeyGroup.appendChild(apiKeyInput);
