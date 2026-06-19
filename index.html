@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EcoCarbon — Premium Carbon Footprint Awareness & Tracking Platform</title>
+  <meta name="description" content="Understand, track, and reduce your carbon footprint with EcoCarbon. Get AI-powered green living tips, log your activities, and unlock badges.">
+  
+  <!-- Global CSS Imports -->
+  <link rel="stylesheet" href="./src/styles/index.css">
+  
+  <!-- Chart.js and Lucide Icons CDNs -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+  <!-- App Layout -->
+  <div id="app-root">
+    <!-- Sidebar navigation (dynamically rendered) -->
+    <div id="sidebar-container"></div>
+    
+    <!-- Main content panel -->
+    <div id="main-content">
+      <!-- Header bar (dynamically rendered) -->
+      <div id="header-container"></div>
+      
+      <!-- Current page content -->
+      <main id="page-container" class="page"></main>
+    </div>
+  </div>
+
+  <!-- Entry Script (ES Module) -->
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
