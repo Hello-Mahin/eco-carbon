@@ -219,14 +219,14 @@ export function renderDashboard() {
       const co2El = helpers.createElement('div', 'log-co2', { text: `+${activity.co2.toFixed(1)} kg` });
       
       const deleteIcon = helpers.createElement('i', [], { 'data-lucide': 'trash' });
-      const deleteBtn = helpers.createElement('button', 'log-delete', { title: 'Delete log' }, [deleteIcon]);
+      const deleteBtn = helpers.createElement('button', 'log-delete', { title: 'Delete log', 'aria-label': 'Delete activity log' }, [deleteIcon]);
       
       deleteBtn.addEventListener('click', () => {
         if (confirm(`Delete the activity "${activity.label}"?`)) {
           storage.deleteActivity(activity.id);
           import('../components/toast.js').then(t => t.toast.success('Activity log removed.'));
-          // Reload dashboard hash route to refresh UI
-          window.location.reload();
+          // Reload dashboard hash route to refresh UI smoothly
+          window.dispatchEvent(new Event('hashchange'));
         }
       });
 

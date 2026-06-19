@@ -84,3 +84,55 @@ test('Storage - completeChallenge', () => {
   const duplicateResult = storage.completeChallenge('meatless_monday', 3.5, 50);
   assert.strictEqual(duplicateResult.success, false);
 });
+
+test('Storage - unlockBadge', () => {
+  localStorage.clear();
+  // 'first_step' is unlocked by default
+  const badges = storage.getUnlockedBadges();
+  assert.ok(badges.includes('first_step'));
+
+  // Unlock new badge
+  const result = storage.unlockBadge('vegan_badge');
+  assert.strictEqual(result, true);
+  assert.ok(storage.getUnlockedBadges().includes('vegan_badge'));
+
+  // Duplicate unlock should fail
+  const duplicateResult = storage.unlockBadge('vegan_badge');
+  assert.strictEqual(duplicateResult, false);
+});
+
+test('Storage - goals operations', () => {
+  localStorage.clear();
+  const goals = storage.getGoals();
+  assert.strictEqual(goals.monthlyTarget, 150);
+
+  const updated = storage.updateGoals({ monthlyTarget: 200, reductionPercent: 20 });
+  assert.strictEqual(updated.monthlyTarget, 200);
+  assert.strictEqual(updated.reductionPercent, 20);
+});
+
+test('Storage - theme options', () => {
+  localStorage.clear();
+  assert.strictEqual(storage.getTheme(), 'dark'); // default
+
+  storage.setTheme('light');
+  assert.strictEqual(storage.getTheme(), 'light');
+});
+
+test('Storage - apiKey settings', () => {
+  localStorage.clear();
+  assert.strictEqual(storage.getApiKey(), '');
+
+  storage.setApiKey('test-key-123');
+  assert.strictEqual(storage.getApiKey(), 'test-key-123');
+});
+
+test('Storage - reset system', () => {
+  localStorage.clear();
+  storage.updateProfile({ name: 'Changed Name' });
+  assert.strictEqual(storage.getProfile().name, 'Changed Name');
+
+  storage.reset();
+  assert.strictEqual(storage.getProfile().name, 'Eco Warrior'); // reset to default
+});
+

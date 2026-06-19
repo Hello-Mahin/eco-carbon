@@ -92,7 +92,7 @@ export const storage = {
   addActivity(activity) {
     const state = this.load();
     const newActivity = {
-      id: 'act_' + Math.random().toString(36).substr(2, 9),
+      id: 'act_' + Math.random().toString(36).slice(2, 11),
       date: new Date().toISOString(),
       ...activity
     };

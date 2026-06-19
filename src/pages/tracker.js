@@ -62,8 +62,8 @@ export function renderTracker() {
         toast.info(`🎉 LEVEL UP! You are now Level ${levelCheck.profile.level}!`);
       }
 
-      // Reload view
-      window.location.reload();
+      // Reload view smoothly without hard page refresh
+      window.dispatchEvent(new Event('hashchange'));
     });
 
     quickActionsGrid.appendChild(btn);
@@ -176,13 +176,13 @@ export function renderTracker() {
       const co2El = helpers.createElement('div', 'log-co2', { text: `+${a.co2.toFixed(1)} kg` });
       
       const deleteIcon = helpers.createElement('i', [], { 'data-lucide': 'trash' });
-      const deleteBtn = helpers.createElement('button', 'log-delete', { title: 'Delete log' }, [deleteIcon]);
+      const deleteBtn = helpers.createElement('button', 'log-delete', { title: 'Delete log', 'aria-label': 'Delete activity log' }, [deleteIcon]);
       
       deleteBtn.addEventListener('click', () => {
         if (confirm(`Delete the activity "${a.label}"?`)) {
           storage.deleteActivity(a.id);
           toast.success('Activity log removed.');
-          window.location.reload();
+          window.dispatchEvent(new Event('hashchange'));
         }
       });
 

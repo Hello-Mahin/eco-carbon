@@ -87,3 +87,27 @@ test('Calculations - aggregateStats values', () => {
   assert.strictEqual(stats.categories.food, 5.0);
   assert.strictEqual(stats.categories.energy, 20.0);
 });
+
+test('Calculations - getHistoryByDay', () => {
+  const mockActivities = [
+    { category: 'transport', co2: 10, date: new Date().toISOString() },
+    { category: 'food', co2: 5, date: new Date().toISOString() }
+  ];
+  
+  const history = calculations.getHistoryByDay(mockActivities, 7);
+  const todayStr = new Date().toISOString().split('T')[0];
+  
+  assert.ok(history[todayStr] !== undefined);
+  assert.strictEqual(history[todayStr], 15.0);
+});
+
+test('Calculations - getHistoryByMonth', () => {
+  const currentYear = new Date().getFullYear();
+  const mockActivities = [
+    { category: 'transport', co2: 25, date: `${currentYear}-06-15T12:00:00Z` },
+    { category: 'food', co2: 15, date: `${currentYear}-06-16T12:00:00Z` }
+  ];
+
+  const history = calculations.getHistoryByMonth(mockActivities);
+  assert.strictEqual(history['Jun'], 40.0);
+});

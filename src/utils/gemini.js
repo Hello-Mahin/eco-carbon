@@ -1,5 +1,6 @@
 import { storage } from './storage.js';
 import { calculations } from './calculations.js';
+import { countryAverages } from '../data/countries.js';
 
 export const gemini = {
   // Call Gemini REST API directly
@@ -125,13 +126,13 @@ export const gemini = {
       4. Keep responses concise and use clean markdown bullet points.
     `;
 
-    let调节Prompt = '';
+    let historyPrompt = '';
     chatHistory.forEach(h => {
-      调节Prompt += `${h.role === 'user' ? 'User' : 'EcoBot'}: ${h.text}\n`;
+      historyPrompt += `${h.role === 'user' ? 'User' : 'EcoBot'}: ${h.text}\n`;
     });
-    调节Prompt += `User: ${message}\nEcoBot:`;
+    historyPrompt += `User: ${message}\nEcoBot:`;
 
-    return this.generateResponse(调节Prompt, systemInstruction);
+    return this.generateResponse(historyPrompt, systemInstruction);
   },
 
   // Generate a complete weekly carbon reduction strategy plan

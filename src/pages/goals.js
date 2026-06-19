@@ -94,7 +94,7 @@ export function renderGoals() {
             toast.info(`🎉 LEVEL UP! You are now Level ${result.state.profile.level}!`);
           }
 
-          window.location.reload();
+          window.dispatchEvent(new Event('hashchange'));
         }
       });
       challengeRight.appendChild(compBtn);

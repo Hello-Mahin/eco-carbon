@@ -27,28 +27,28 @@ export function renderInsights() {
 
   // Slider 1: Food Swap (Beef to Veg)
   const meatSliderGroup = helpers.createElement('div', 'form-group');
-  const meatSliderLabel = helpers.createElement('label', 'form-label', { text: 'Reduce Beef/Meat consumption by:' });
+  const meatSliderLabel = helpers.createElement('label', 'form-label', { text: 'Reduce Beef/Meat consumption by:', for: 'insights-meat-slider' });
   const meatValueLabel = helpers.createElement('span', [], { text: ' 0 kg/week', style: 'font-weight:600; color:var(--primary-color);' });
   meatSliderLabel.appendChild(meatValueLabel);
-  const meatSlider = helpers.createElement('input', 'form-control', { type: 'range', min: '0', max: '5', step: '0.5', value: '0' });
+  const meatSlider = helpers.createElement('input', 'form-control', { type: 'range', min: '0', max: '5', step: '0.5', value: '0', id: 'insights-meat-slider' });
   meatSliderGroup.appendChild(meatSliderLabel);
   meatSliderGroup.appendChild(meatSlider);
 
   // Slider 2: Driving to Transit Swap
   const carSliderGroup = helpers.createElement('div', 'form-group');
-  const carSliderLabel = helpers.createElement('label', 'form-label', { text: 'Swap Car driving with Public Transit/Cycling:' });
+  const carSliderLabel = helpers.createElement('label', 'form-label', { text: 'Swap Car driving with Public Transit/Cycling:', for: 'insights-car-slider' });
   const carValueLabel = helpers.createElement('span', [], { text: ' 0 km/week', style: 'font-weight:600; color:var(--primary-color);' });
   carSliderLabel.appendChild(carValueLabel);
-  const carSlider = helpers.createElement('input', 'form-control', { type: 'range', min: '0', max: '200', step: '10', value: '0' });
+  const carSlider = helpers.createElement('input', 'form-control', { type: 'range', min: '0', max: '200', step: '10', value: '0', id: 'insights-car-slider' });
   carSliderGroup.appendChild(carSliderLabel);
   carSliderGroup.appendChild(carSlider);
 
   // Slider 3: Renewable Electricity Solar Panel installation
   const solarGroup = helpers.createElement('div', 'form-group');
-  const solarLabel = helpers.createElement('label', 'form-label', { text: 'Switch home energy source to solar:' });
+  const solarLabel = helpers.createElement('label', 'form-label', { text: 'Switch home energy source to solar:', for: 'insights-solar-slider' });
   const solarValueLabel = helpers.createElement('span', [], { text: ' 0% solar power', style: 'font-weight:600; color:var(--primary-color);' });
   solarLabel.appendChild(solarValueLabel);
-  const solarSlider = helpers.createElement('input', 'form-control', { type: 'range', min: '0', max: '100', step: '10', value: '0' });
+  const solarSlider = helpers.createElement('input', 'form-control', { type: 'range', min: '0', max: '100', step: '10', value: '0', id: 'insights-solar-slider' });
   solarGroup.appendChild(solarLabel);
   solarGroup.appendChild(solarSlider);
 
@@ -157,6 +157,68 @@ export function renderInsights() {
     shimmerContainer.style.display = 'none';
     strategyContainer.textContent = "AI Generation failed. Check your API configuration in Profile.";
   });
+
+  // ------------------------------------
+  // SECTION: CARBON OFFSET SUGGESTIONS
+  // ------------------------------------
+  const offsetTitle = helpers.createElement('h3', [], { text: 'Verified Carbon Offsetting Suggestions', style: 'margin-bottom: 8px; margin-top: 24px;' });
+  const offsetDesc = helpers.createElement('p', [], {
+    text: 'For carbon emissions you cannot avoid, consider supporting these verified gold-standard offset initiatives.',
+    style: 'font-size: 0.8rem; color: var(--text-muted); margin-bottom: 20px;'
+  });
+
+  const offsetGrid = helpers.createElement('div', 'grid-3');
+
+  const offsetProjects = [
+    {
+      title: 'Gold Standard Projects',
+      desc: 'Support certified wind, solar, clean water, and community development projects worldwide with verifiable carbon credits.',
+      linkText: 'Support Gold Standard',
+      url: 'https://www.goldstandard.org/',
+      icon: 'globe'
+    },
+    {
+      title: 'TeamTrees Reforestation',
+      desc: 'Every dollar donated plants a native tree in a critical forest ecosystem to rebuild wildlife habitats and capture CO₂.',
+      linkText: 'Plant Trees with TeamTrees',
+      url: 'https://teamtrees.org/',
+      icon: 'tree-pine'
+    },
+    {
+      title: 'Climeworks Carbon Removal',
+      desc: 'Fund direct air capture technology that filters carbon dioxide directly out of ambient air and stores it safely underground.',
+      linkText: 'Explore Climeworks',
+      url: 'https://climeworks.com/',
+      icon: 'wind'
+    }
+  ];
+
+  offsetProjects.forEach(p => {
+    const pIcon = helpers.createElement('i', [], { 'data-lucide': p.icon, style: 'width: 24px; height: 24px; color: var(--primary-color)' });
+    const pIconWrap = helpers.createElement('div', 'stat-icon-wrapper', { style: 'background: rgba(16,185,129,0.1); margin: 0 auto 12px;' }, [pIcon]);
+    
+    const pTitle = helpers.createElement('div', [], { text: p.title, style: 'font-weight: 600; font-size: 1rem; margin-bottom: 8px; color: var(--text-primary)' });
+    const pDesc = helpers.createElement('div', [], { text: p.desc, style: 'font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 16px; min-height: 60px;' });
+    
+    const pLink = helpers.createElement('a', ['btn', 'btn-secondary'], { 
+      href: p.url, 
+      target: '_blank', 
+      rel: 'noopener noreferrer', 
+      text: p.linkText,
+      style: 'display: block; text-align: center; font-size: 0.8rem; padding: 8px 0; border-radius: var(--radius-sm); border: 1px solid var(--border-color);'
+    });
+    
+    const card = helpers.createElement('div', 'glass-card', { style: 'text-align: center; padding: 24px;' }, [
+      pIconWrap,
+      pTitle,
+      pDesc,
+      pLink
+    ]);
+    offsetGrid.appendChild(card);
+  });
+
+  const offsetSection = helpers.createElement('div', {}, {}, [offsetTitle, offsetDesc, offsetGrid]);
+  container.appendChild(offsetSection);
 
   setTimeout(() => helpers.refreshIcons(), 50);
 
